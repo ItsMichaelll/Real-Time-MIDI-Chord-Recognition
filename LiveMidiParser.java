@@ -114,6 +114,10 @@ public class LiveMidiParser {
                 return "M7";
             case 12:
                 return "P8";
+            case 13:
+                return "m9";
+            case 14:
+                return "M9";
             default:
                 return "Unknown";
         }
@@ -182,6 +186,41 @@ public class LiveMidiParser {
                 else if(i1.equals("m3") && i2.equals("P5")) { chordType = "Minor"; }
                 else if(i1.equals("M3") && i2.equals("TT")) { chordType = "Augmented"; }
                 else if(i1.equals("m3") && i2.equals("TT")) { chordType = "Diminished"; }
+            }
+
+            // Seventh chords
+            else if(intervals.length == 3) {
+                String i1 = intervals[0];
+                String i2 = intervals[1];
+                String i3 = intervals[2];
+
+                if(i1.equals("M3") && i2.equals("P5") && i3.equals("m7")) { chordType = "Dominant 7th"; }
+                else if(i1.equals("M3") && i2.equals("P5") && i3.equals("M7")) { chordType = "Major 7th"; }
+                else if(i1.equals("m3") && i2.equals("P5") && i3.equals("m7")) { chordType = "Minor 7th"; }
+                else if(i1.equals("m3") && i2.equals("P5") && i3.equals("M7")) { chordType = "Minor Major 7th"; }
+                else if(i1.equals("M3") && i2.equals("TT") && i3.equals("m7")) { chordType = "Augmented 7th"; }
+                else if(i1.equals("m3") && i2.equals("TT") && i3.equals("m7")) { chordType = "Half-Diminished 7th"; }
+                else if(i1.equals("m3") && i2.equals("TT") && i3.equals("M7")) { chordType = "Diminished 7th"; }
+            }
+            
+            // Extended chords
+            else if(intervals.length == 4) {
+                String i1 = intervals[0];
+                String i2 = intervals[1];
+                String i3 = intervals[2];
+                String i4 = intervals[3];
+
+                if(i1.equals("M3") && i2.equals("P5") && i3.equals("m7") && i4.equals("M9")) { chordType = "Dominant 9th"; }
+                else if(i1.equals("M3") && i2.equals("P5") && i3.equals("M7") && i4.equals("M9")) { chordType = "Major 9th"; }
+                else if(i1.equals("m3") && i2.equals("P5") && i3.equals("m7") && i4.equals("M9")) { chordType = "Minor 9th"; }
+                else if(i1.equals("m3") && i2.equals("P5") && i3.equals("M7") && i4.equals("M9")) { chordType = "Minor Major 9th"; }
+                else if(i1.equals("M3") && i2.equals("P5") && i3.equals("m7") && i4.equals("m9")) { chordType = "Dominant 7b9"; }
+                else if(i1.equals("M3") && i2.equals("P5") && i3.equals("m7") && i4.equals("M9")) { chordType = "Dominant 7#9"; }
+                else if(i1.equals("M3") && i2.equals("P5") && i3.equals("m7") && i4.equals("m9")) { chordType = "Dominant 7b9"; }
+                else if(i1.equals("M3") && i2.equals("P5") && i3.equals("M7") && i4.equals("m9")) { chordType = "Dominant 7#9"; }
+                else if(i1.equals("M3") && i2.equals("TT") && i3.equals("m7") && i4.equals("M9")) { chordType = "Augmented 9th"; }
+                else if(i1.equals("m3") && i2.equals("TT") && i3.equals("m7") && i4.equals("M9")) { chordType = "Half-Diminished 9th"; }
+                else if(i1.equals("m3") && i2.equals("TT") && i3.equals("M7") && i4.equals("M9")) { chordType = "Diminished 9th"; }
             }
         } catch(NullPointerException e) {
             // No notes have been pressed
